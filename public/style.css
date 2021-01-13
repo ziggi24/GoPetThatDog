@@ -14,14 +14,17 @@ body {
 
 }
 .tree {
-    font-size: 10vmin;
+    font-size: 12vmin;
     transform: translate(-50%, -50%);
+    position: fixed;
 }
 
 .dog {
     display: inline-block;
-    font-size: 6vmin;
+    font-size: 8vmin;
     transform: translate(-50%, -50%);
+    position: fixed;
+    cursor: pointer;
 }
 .bounce {
     animation: bounce 350ms alternate ease-in-out infinite;
