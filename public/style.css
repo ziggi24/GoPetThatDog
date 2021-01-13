@@ -1,0 +1,50 @@
+* {
+     padding: 0; 
+     margin: 0;
+}
+body {
+    font-family: monospace;
+
+}
+.park {
+    background: #9DD57B;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+}
+.tree {
+    font-size: 10vmin;
+    transform: translate(-50%, -50%);
+}
+
+.dog {
+    display: inline-block;
+    font-size: 6vmin;
+    transform: translate(-50%, -50%);
+}
+.bounce {
+    animation: bounce 350ms alternate ease-in-out infinite;
+}
+.title {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vw;
+}
+.score {
+    font-size: 2.5vw;;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translate(-50%, -50%) translateY(-1.5vmin);
+    }
+    100% {
+        transform: translate(-50%, -50%) translateY(1.5vmin);
+    }
+}
