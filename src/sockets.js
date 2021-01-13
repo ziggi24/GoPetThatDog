@@ -141,17 +141,14 @@ module.exports = (server) =>{
     io.on('connection', (socket) =>{
         socket.emit('game-state', gameState);
         socket.on('pet-dog', ({ id }) => { 
-            gameState.dogsPet += 1;
-            gameState.dogs = gameState.dogs.filter(dog => dog.id !== id);
-            gameState.dogs.push({
-                emoji: '🐶',
-                id: gameState.dogs[gameState.dogs.length - 1].id + 1,
-                location: {
-                    x: getRandomPos(),
-                    y: getRandomPos(), 
-                },
-            });
-            hasUpdate = true;
+            const dogIndex = gameState.dogs.findIndex(dog => dog.id === id);
+            if(dogIndex !== -1) {
+                gameState.dogsPet += 1;
+                gameState.dogs[dogIndex].location.x = getRandomPos();
+                gameState.dogs[dogIndex].location.y = getRandomPos();
+                
+                hasUpdate = true;
+            }
         })
     })
 
