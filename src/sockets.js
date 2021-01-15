@@ -11,6 +11,7 @@ module.exports = (server) =>{
     const io = socketIO(server);
 
     const gameState = { 
+        currentUsers: 0,
         dogsPet: 0,
         trees: [
             {
@@ -139,6 +140,8 @@ module.exports = (server) =>{
 
     let hasUpdate = false
     io.on('connection', (socket) =>{
+        gameState.currentUsers += 1;
+        hasUpdate = true; 
         socket.emit('game-state', gameState);
         socket.on('pet-dog', ({ id }) => { 
             const dogIndex = gameState.dogs.findIndex(dog => dog.id === id);
@@ -147,6 +150,12 @@ module.exports = (server) =>{
                 gameState.dogs[dogIndex].location.x = getRandomPos();
                 gameState.dogs[dogIndex].location.y = getRandomPos();
                 
+                hasUpdate = true;
+            }
+        })
+        socket.on('disconnect', () => {
+            if(gameState.currentUsers > 0) {
+                gameState.currentUsers -= 1; 
                 hasUpdate = true;
             }
         })
