@@ -1,5 +1,6 @@
 const park = document.querySelector('.park');
 const scoreElement = document.querySelector('.score .value');
+const usersElement = document.querySelector('.score .users')
 const socket = io();
 
 const treesById = {};
@@ -20,7 +21,8 @@ const petDog = (dog) =>{
 
 const updateView = (gameState) =>{
     scoreElement.textContent = gameState.dogsPet;
-    console.log(gameState);
+    usersElement.textContent = gameState.currentUsers;
+    //console.log(gameState);
     gameState.trees.forEach(tree => { 
         if(!treesById[tree.id]) {
             const treeElement = document.createElement('span');
