@@ -7,7 +7,7 @@ The global score updates when anyone visits the page and pets any of the dogs.
 ## Todo 
 
 - [ ] about page/modal 
-- [ ] list of current active players 
+- [x] list of current active players 
 - [ ] better animations, trees swaying in wind
 - [ ] dogs moving around the park 
 
