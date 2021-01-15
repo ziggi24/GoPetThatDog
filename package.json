@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
+    "random-word-slugs": "^0.0.2",
     "socket.io": "^3.0.5"
   },
   "devDependencies": {

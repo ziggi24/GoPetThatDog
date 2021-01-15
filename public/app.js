@@ -21,7 +21,7 @@ const petDog = (dog) =>{
 
 const updateView = (gameState) =>{
     scoreElement.textContent = gameState.dogsPet;
-    usersElement.textContent = gameState.currentUsers;
+    usersElement.textContent = gameState.currentUsers.length;
     //console.log(gameState);
     gameState.trees.forEach(tree => { 
         if(!treesById[tree.id]) {

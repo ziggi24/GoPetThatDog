@@ -1,7 +1,8 @@
 const socketIO = require('socket.io');
+const slug = require('random-word-slugs');
 
 function getRandomPos() {
-    let min = 0.2;
+    let min = 0.3;
     let max = 0.85;
     return Math.random() * (max - min) + min; //The maximum is exclusive and the minimum is inclusive
   }
@@ -11,7 +12,7 @@ module.exports = (server) =>{
     const io = socketIO(server);
 
     const gameState = { 
-        currentUsers: 0,
+        currentUsers: [],
         dogsPet: 0,
         trees: [
             {
@@ -137,10 +138,25 @@ module.exports = (server) =>{
         },
     ],
     };
+    const removeUserByID = (id) =>{
+        for( let i = 0; i < gameState.currentUsers.length; i++){
+            if (gameState.currentUsers[i].id === id){
+                gameState.currentUsers.splice(i, 1);
+            }
+        }
+    }
 
     let hasUpdate = false
     io.on('connection', (socket) =>{
-        gameState.currentUsers += 1;
+        const newUser = {
+            emoji: "🤚",
+            id: slug.generateSlug(),
+            location: {
+                x: getRandomPos(),
+                y: getRandomPos(),
+            }
+        }
+        gameState.currentUsers.push(newUser);
         hasUpdate = true; 
         socket.emit('game-state', gameState);
         socket.on('pet-dog', ({ id }) => { 
@@ -154,11 +170,15 @@ module.exports = (server) =>{
             }
         })
         socket.on('disconnect', () => {
-            if(gameState.currentUsers > 0) {
-                gameState.currentUsers -= 1; 
+            if(gameState.currentUsers.length > 0) {
+                //console.log(newUser.id);
+                removeUserByID(newUser.id);
                 hasUpdate = true;
             }
         })
+        // socket.on('mouse-move', ({ id }) =>{
+
+        // })
     })
 
     setInterval(() =>{
